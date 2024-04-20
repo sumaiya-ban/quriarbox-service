@@ -1,18 +1,24 @@
 import React, { useState } from 'react'
 import LIME from '../../../public/Group 56.png'
 import { MdError } from "react-icons/md";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 const Callback = () => {
   let [email,setEmail]=useState("");
   let[password,setPassword]=useState("");
   let[check,setCheck]=useState(false);
   let[Emailerror,SetErrorEmail]=useState("");
   let[Passowrderror,SetErrorPassword]=useState("");
+  let[PasswordShow,SetPasswordShow]=useState(false);
+
   function handleEmail(e){
     setEmail(e.target.value); 
+    SetErrorEmail('');
   }
   
   function handlePassword(e){
     setPassword(e.target.value);
+    SetErrorPassword('');
 
   }
   function handleCheckbox(e){
@@ -54,16 +60,24 @@ setCheck(e.target.checked);
     {Emailerror&& <h2 className='text-red-700 flex'><div className='p-1'><MdError /></div>{Emailerror}</h2>}
     
   </div>
-  <div className="mb-5">
-    
+  <div className="mb-5 relative">
+    <div >
     <input
     onChange={handlePassword}
-      type="password"
+      type={PasswordShow?("text") : ("password")}
       id="password"
       className="bg-gray-50 pl-4 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-96 h-12 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
       placeholder='Password'
       required=""
     />
+    {PasswordShow?(
+      <div className='absolute top-4 right-3'><FaEye onClick={()=> SetPasswordShow(false)} /></div>):
+    (<div className='absolute top-4 right-3 ' ><FaEyeSlash onClick={()=> SetPasswordShow(true)} /></div>
+    )}
+    
+    
+    </div>
+    
     {Passowrderror && <h2 className='text-red-700 flex'><div className='p-1'><MdError /></div>{Passowrderror}</h2>}
     
     
